@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import * as BooksAPI from './BooksAPI';
 import SearchBooksText from './SearchBooksText';
 
 class SearchBooks extends Component {
+  search = (text) => {
+    return new Promise((resolve, reject) => {
+      BooksAPI.search(text, 10).then((books) => {
+        resolve(books);
+      });
+    });
+  }
+
   render() {
     return (
         <div className="search-books">
@@ -18,7 +27,7 @@ class SearchBooks extends Component {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
-              <SearchBooksText/>
+              <SearchBooksText search={this.search}/>
             </div>
           </div>
           <div className="search-books-results">

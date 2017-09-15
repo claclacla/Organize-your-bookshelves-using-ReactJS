@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import * as BooksAPI from './BooksAPI';
 
 class SearchBooksText extends Component {
+  static propTypes = {
+    search: PropTypes.func.isRequired
+  }
+
   state = {
     searchText: ""
   }
@@ -12,9 +17,9 @@ class SearchBooksText extends Component {
 
     // TODO: Move the code below on a SearchBooks method passed as prop
 
-    BooksAPI.search(this.state.searchText, 10).then((books) => {
+    this.search(this.state.searchText).then((books) => {
       console.log(books);
-    })
+    });
   }
 
   render() {
