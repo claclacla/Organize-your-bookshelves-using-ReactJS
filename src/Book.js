@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// https://facebook.github.io/react/docs/lifting-state-up.html
+// https://facebook.github.io/react/docs/lifting-state-up.html#lifting-state-up
+
 class Book extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     authors: PropTypes.array,
-    image: PropTypes.string
+    image: PropTypes.string,
+    shelf: PropTypes.string,
+    setBookShelf: PropTypes.func.isRequired
+  }
+
+  state = {
+    bookshelf: ""
+  }
+
+  setBookShelf = (event) => {
+    this.props.setBookShelf(this.props.id, event.target.value);
   }
 
   render() {
-    const { id, title, authors, image } = this.props;
+    const { title, authors, image, shelf } = this.props;
 
     return (
       <li>
@@ -18,7 +31,7 @@ class Book extends Component {
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + image + ')' }}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select value={shelf} onChange={this.setBookShelf}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>

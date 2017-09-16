@@ -28,6 +28,10 @@ class SearchBooks extends Component {
     });
   }
 
+  setBookShelf = (id, shelf) => {
+    var book = this.state.books.find(book => book.id === id);
+  }
+
   render() {
     const { books } = this.state;
 
@@ -50,7 +54,7 @@ class SearchBooks extends Component {
           <div className="search-books-results">
             <ol className="books-grid">
               {books.map(book =>               
-                <Book key={book.id} id={book.id} title={book.title} authors={book.authors} image={book.imageLinks.smallThumbnail}/>
+                <Book key={book.id} id={book.id} title={book.title} authors={book.authors} image={book.imageLinks.smallThumbnail} shelf={book.shelf} setBookShelf={this.setBookShelf}/>
               )}
             </ol>
           </div>
