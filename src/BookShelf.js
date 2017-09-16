@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class BookShelf extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    shelfName: PropTypes.string.isRequired
+  };
+
   render() {
     return (
       <div className="bookshelf">
