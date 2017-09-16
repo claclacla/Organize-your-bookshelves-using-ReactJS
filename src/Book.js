@@ -25,12 +25,15 @@ class Book extends Component {
   render() {
     const { title, authors, image, shelf } = this.props;
 
+/*className="book-shelf-changer"*/
+
     return (
       <li>
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + image + ')' }}></div>
-          <div className="book-shelf-changer">
+          <div>
+            {shelf}
             <select value={shelf} onChange={this.setBookShelf}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
