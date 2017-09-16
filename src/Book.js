@@ -14,10 +14,6 @@ class Book extends Component {
     setBookShelf: PropTypes.func.isRequired
   }
 
-  state = {
-    bookshelf: ""
-  }
-
   setBookShelf = (event) => {
     this.props.setBookShelf(this.props.id, event.target.value);
   }
@@ -37,7 +33,6 @@ class Book extends Component {
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + image + ')' }}></div>
           <div>
-            {shelf}
             <select value={bookShelf} onChange={this.setBookShelf}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
