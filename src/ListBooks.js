@@ -6,6 +6,8 @@ import BookShelf from './BookShelf';
 
 class ListBooks extends Component {
   CURRENTLY_READING = "currentlyReading";
+  READ = "read";
+  WANT_TO_READ = "wantToRead";
 
   state = {
     books: []
@@ -26,6 +28,8 @@ class ListBooks extends Component {
         <div className="list-books-content">
           <div>
             <BookShelf title="Currently reading" books={this.state.books.filter(book => book.shelf === this.CURRENTLY_READING)} />
+            <BookShelf title="Want to read" books={this.state.books.filter(book => book.shelf === this.WANT_TO_READ)} />
+            <BookShelf title="Read" books={this.state.books.filter(book => book.shelf === this.READ)} />
           </div>
         </div>
         <div className="open-search">
