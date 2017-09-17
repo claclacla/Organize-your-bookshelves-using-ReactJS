@@ -37,7 +37,7 @@ class SearchBooks extends Component {
     });
 
     BooksAPI.update(this.state.books[bookIdx], shelf).then((res) => {
-
+      
     });
   }
 
