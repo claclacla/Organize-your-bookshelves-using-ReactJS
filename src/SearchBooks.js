@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import * as BooksAPI from './BooksAPI';
 import SearchBooksText from './SearchBooksText';
 import Book from './Book';
 
 class SearchBooks extends Component {
+  static propTypes = {
+    setBookShelf: PropTypes.func.isRequired
+  }
+
   state = {
     books: []
   }
@@ -28,16 +33,16 @@ class SearchBooks extends Component {
     });
   }
 
-  setBookShelf = (id, shelf) => {
-    var bookIdx = this.state.books.findIndex(book => book.id === id);
+  // Add a decorator function
+
+  setBookShelf = (book, shelf) => {
+    this.props.setBookShelf(book, shelf);
+
+    var bookIdx = this.state.books.findIndex(stateBook => stateBook.id === book.id);
 
     this.setState((state) => {
       state.books[bookIdx].shelf = shelf;
       return state;
-    });
-
-    BooksAPI.update(this.state.books[bookIdx], shelf).then((res) => {
-      
     });
   }
 
@@ -63,7 +68,7 @@ class SearchBooks extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {books.map(book =>
-              <Book key={book.id} id={book.id} title={book.title} authors={book.authors} image={book.imageLinks.smallThumbnail} shelf={book.shelf} setBookShelf={this.setBookShelf} />
+              <Book key={book.id} book={book} setBookShelf={this.setBookShelf} />
             )}
           </ol>
         </div>

@@ -17,15 +17,22 @@ class BooksApp extends React.Component {
     })
   }
 
-  setBookShelf = (id, shelf) => {
-    var bookIdx = this.state.books.findIndex(book => book.id === id);
+  setBookShelf = (book, shelf) => {
+    var bookIdx = this.state.books.findIndex(stateBook => stateBook.id === book.id);
 
     this.setState((state) => {
-      state.books[bookIdx].shelf = shelf;
+      if (bookIdx >= 0) {
+        state.books[bookIdx].shelf = shelf;
+      }
+      else {
+        book.shelf = shelf;
+        state.books.push(book);
+      }
+
       return state;
     });
 
-    BooksAPI.update(this.state.books[bookIdx], shelf).then((res) => {
+    BooksAPI.update(book, shelf).then((res) => {
 
     });
   }
@@ -34,9 +41,11 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <ListBooks books={this.state.books} setBookShelf={this.setBookShelf}/>
-        )}/>
-        <Route path="/search" component={SearchBooks}/>
+          <ListBooks books={this.state.books} setBookShelf={this.setBookShelf} />
+        )} />
+        <Route path="/search" render={() => (
+          <SearchBooks setBookShelf={this.setBookShelf} />
+        )} />
       </div>
     );
   }
