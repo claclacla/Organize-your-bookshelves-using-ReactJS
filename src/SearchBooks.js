@@ -12,23 +12,23 @@ class SearchBooks extends Component {
   }
 
   state = {
-    books: []
+    searchedBooks: []
   }
 
   search = (text) => {
     return new Promise((resolve, reject) => {
       if (text === "") {
-        this.setState({ books: [] });
+        this.setState({ searchedBooks: [] });
         return resolve([]);
       }
 
-      BooksAPI.search(text, 100).then((books) => {
-        if (!Array.isArray(books)) {
-          books = [];
+      BooksAPI.search(text, 100).then((searchedBooks) => {
+        if (!Array.isArray(searchedBooks)) {
+          searchedBooks = [];
         }
 
-        this.setState({ books });
-        resolve(books);
+        this.setState({ searchedBooks });
+        resolve(searchedBooks);
       });
     });
   }
@@ -38,16 +38,16 @@ class SearchBooks extends Component {
   setBookShelf = (book, shelf) => {
     this.props.setBookShelf(book, shelf);
 
-    var bookIdx = this.state.books.findIndex(stateBook => stateBook.id === book.id);
+    var bookIdx = this.state.searchedBooks.findIndex(stateBook => stateBook.id === book.id);
 
     this.setState((state) => {
-      state.books[bookIdx].shelf = shelf;
+      state.searchedBooks[bookIdx].shelf = shelf;
       return state;
     });
   }
 
   render() {
-    const { books } = this.state;
+    const { searchedBooks } = this.state;
 
     return (
       <div className="search-books">
@@ -67,7 +67,7 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {books.map(book =>
+            {searchedBooks.map(book =>
               <Book key={book.id} book={book} setBookShelf={this.setBookShelf} />
             )}
           </ol>
