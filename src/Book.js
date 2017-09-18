@@ -10,7 +10,8 @@ class Book extends Component {
     title: PropTypes.string.isRequired,
     authors: PropTypes.array,
     image: PropTypes.string,
-    shelf: PropTypes.string
+    shelf: PropTypes.string,
+    setBookShelf: PropTypes.func.isRequired
   }
 
   setBookShelf = (event) => {
