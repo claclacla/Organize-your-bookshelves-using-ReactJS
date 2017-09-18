@@ -8,11 +8,26 @@ import Book from './Book';
 
 class SearchBooks extends Component {
   static propTypes = {
+    books: PropTypes.array.isRequired,
     setBookShelf: PropTypes.func.isRequired
   }
 
   state = {
     searchedBooks: []
+  }
+
+  setSearchedBookShelf = (searchedBooks) => {
+    searchedBooks = searchedBooks.map(searchedBook => {
+      var book = this.props.books.find(book => book.id === searchedBook.id);
+
+      if(book) {
+        searchedBook.shelf = book.shelf;
+      }
+
+      return searchedBook;
+    });
+
+    return searchedBooks;
   }
 
   search = (text) => {
@@ -27,13 +42,14 @@ class SearchBooks extends Component {
           searchedBooks = [];
         }
 
+        searchedBooks = this.setSearchedBookShelf(searchedBooks);
         this.setState({ searchedBooks });
         resolve(searchedBooks);
       });
     });
   }
 
-  // Add a decorator function
+  // Add a decorator function to App.setBookShelf() method
 
   setBookShelf = (book, shelf) => {
     this.props.setBookShelf(book, shelf);
