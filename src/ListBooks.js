@@ -10,21 +10,26 @@ class ListBooks extends Component {
   WANT_TO_READ = "wantToRead";
 
   state = {
-    books: {
-      currentlyReading: [],
-      wantToRead: [],
-      read: []
-    }
+    books: []
   }
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      this.setState((state) => {
-        state.books.currentlyReading = books.filter(book => book.shelf === this.CURRENTLY_READING);
-        state.books.wantToRead = books.filter(book => book.shelf === this.WANT_TO_READ);
-        state.books.read = books.filter(book => book.shelf === this.READ);
-      });
+      this.setState({ books });
     })
+  }
+
+  setBookShelf = (id, shelf) => {
+    var bookIdx = this.state.books.findIndex(book => book.id === id);
+
+    this.setState((state) => {
+      state.books[bookIdx].shelf = shelf;
+      return state;
+    });
+
+    BooksAPI.update(this.state.books[bookIdx], shelf).then((res) => {
+
+    });
   }
 
   render() {
@@ -35,9 +40,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf title="Currently reading" books={this.state.books.currentlyReading} />
-            <BookShelf title="Want to read" books={this.state.books.wantToRead} />
-            <BookShelf title="Read" books={this.state.books.read} />
+            <BookShelf title="Currently reading" books={this.state.books.filter(book => book.shelf === this.CURRENTLY_READING)} />
+            <BookShelf title="Want to read" books={this.state.books.filter(book => book.shelf === this.WANT_TO_READ)} />
+            <BookShelf title="Read" books={this.state.books.filter(book => book.shelf === this.READ)} />
           </div>
         </div>
         <div className="open-search">
