@@ -16,19 +16,14 @@ class Book extends Component {
 
   render() {
     const { book } = this.props;
-    
-    var bookShelf = book.shelf; 
 
-    if(bookShelf === undefined) {
+    var bookShelf = book.shelf;
+
+    if (bookShelf === undefined) {
       bookShelf = "none";
     }
 
-    return (
-      <li>
-      <div className="book">
-        <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
-          <div>
+    /*
             <select value={bookShelf} onChange={this.setBookShelf}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
@@ -36,12 +31,20 @@ class Book extends Component {
               <option value="read">Read</option>
               <option value="none">None</option>
             </select>
+    */
+
+    return (
+      <li>
+        <div className="book">
+          <div className="book-top">
+            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
           </div>
+          <div className="book-shelf-changer"></div>
+          <div className="book-shelf">{bookShelf}</div>
+          <div className="book-title">{book.title}</div>
+          <div className="book-authors">{(Array.isArray(book.authors)) && book.authors.map((author, idx) => <div key={idx}>{author}</div>)}</div>
         </div>
-        <div className="book-title">{book.title}</div>
-        <div className="book-authors">{(Array.isArray(book.authors)) && book.authors.map((author, idx) => <div key={idx}>{author}</div>)}</div>
-      </div>
-    </li>
+      </li>
     );
   }
 }

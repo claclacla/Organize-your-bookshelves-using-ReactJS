@@ -120,14 +120,19 @@ body, .app {
 }
 
 .book {
+  position: relative;
   width: 140px;
 }
 .book-title,
 .book-authors {
   font-size: 0.8em;
 }
-.book-title {
+.book-shelf {
   margin-top: 10px;
+  color: #2e7d32;
+}
+.book-title {
+  margin-top: 2px;
 }
 .book-authors {
   color: #999;
@@ -142,10 +147,10 @@ body, .app {
 
 .book-shelf-changer {
   position: absolute;
-  right: 0;
-  bottom: -10px;
-  width: 40px;
-  height: 40px;
+  right: -6px;
+  top: 210px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #60ac5d;
   background-image: url('./icons/arrow-drop-down.svg');
