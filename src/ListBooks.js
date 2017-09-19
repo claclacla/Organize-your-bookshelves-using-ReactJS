@@ -21,9 +21,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf title="Currently reading" books={books.filter(book => book.shelf === Data.CURRENTLY_READING)} setBookShelf={this.props.setBookShelf}/>
-            <BookShelf title="Want to read" books={books.filter(book => book.shelf === Data.WANT_TO_READ)} setBookShelf={this.props.setBookShelf}/>
-            <BookShelf title="Read" books={books.filter(book => book.shelf === Data.READ)} setBookShelf={this.props.setBookShelf}/>
+            <BookShelf title="Currently reading" books={books.filter(book => book.shelf === Data.currentlyReading.value)} setBookShelf={this.props.setBookShelf}/>
+            <BookShelf title="Want to read" books={books.filter(book => book.shelf === Data.wantToRead.value)} setBookShelf={this.props.setBookShelf}/>
+            <BookShelf title="Read" books={books.filter(book => book.shelf === Data.read.value)} setBookShelf={this.props.setBookShelf}/>
           </div>
         </div>
         <div className="open-search">
