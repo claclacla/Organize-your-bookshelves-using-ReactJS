@@ -5,7 +5,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
-import SetBookShelf from './SetBookShelf';
+import PickBookShelf from './PickBookShelf';
 
 class BooksApp extends React.Component {
   state = {
@@ -44,7 +44,7 @@ class BooksApp extends React.Component {
         <Route exact path="/" render={() => (
           <ListBooks books={this.state.books} setBookShelf={this.setBookShelf} />
         )} />
-        <Route path="/setbookshelf" component={SetBookShelf}/>
+        <Route path="/pick-book-shelf" component={PickBookShelf}/>
         <Route path="/search" render={() => (
           <SearchBooks books={this.state.books} setBookShelf={this.setBookShelf} />
         )} />

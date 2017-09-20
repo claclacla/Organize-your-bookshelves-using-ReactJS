@@ -40,7 +40,7 @@ class Book extends Component {
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
           </div>
-          <Link to="/setbookshelf"><div className="book-shelf-changer"></div></Link>
+          <Link to="/pick-book-shelf?bookId=10"><div className="book-shelf-changer"></div></Link>
           <div className="book-shelf">{bookShelf}</div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{(Array.isArray(book.authors)) && book.authors.map((author, idx) => <div key={idx}>{author}</div>)}</div>

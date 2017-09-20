@@ -75,6 +75,16 @@ body, .app {
   color: white;
 }
 
+.book-shelf-title-grid {
+  list-style-type: none;
+  padding-top: 25px;
+}
+.book-shelf-title-grid li {
+  padding: 15px 25px;
+  text-align: left;
+  font-size: 2em;
+}
+
 /* search page */
 
 .search-books-bar {
