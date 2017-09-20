@@ -45,9 +45,9 @@ class BooksApp extends React.Component {
           <ListBooks books={this.state.books} setBookShelf={this.setBookShelf} />
         )} />
         <Route path="/pick-book-shelf" component={PickBookShelf}/>
-        <Route path="/search" render={() => (
-          <SearchBooks books={this.state.books} setBookShelf={this.setBookShelf} />
-        )} />
+        <Route path="/search" render={(routeProps) => {
+          return (<SearchBooks routeProps={routeProps} books={this.state.books} setBookShelf={this.setBookShelf} />);
+        }} />
       </div>
     );
   }

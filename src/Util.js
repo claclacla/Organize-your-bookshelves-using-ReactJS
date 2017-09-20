@@ -1,12 +1,16 @@
 class Util {
   static getQueryParams(queryString) {
-    var queryParams = [];
+    var queryParams = {};
+
+    if(typeof queryString !== "string" || queryString.length === 0) {
+      return queryParams;
+    }
     
     queryString = queryString.substr(1);
     var queryParamsStr = queryString.split("&");
     var key, value;
 
-    queryParamsStr.map(queryParamStr => {
+    queryParamsStr.forEach(queryParamStr => {
       [ key, value ] = queryParamStr.split("=");
       queryParams[key] = value;
     });

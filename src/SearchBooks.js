@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import * as BooksAPI from './BooksAPI';
+import Util from './Util';
 import SearchBooksText from './SearchBooksText';
 import Book from './Book';
 
@@ -14,6 +15,15 @@ class SearchBooks extends Component {
 
   state = {
     searchedBooks: []
+  }
+
+  componentDidMount() {
+    var queryString = this.props.routeProps.location.search;
+    var queryParams = Util.getQueryParams(queryString);
+    
+    if(queryParams.hasOwnProperty("text")) {
+      this.search(queryParams.text);
+    }
   }
 
   setSearchedBookShelf = (searchedBooks) => {
