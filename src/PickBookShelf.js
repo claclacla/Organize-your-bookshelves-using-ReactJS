@@ -2,12 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Data from './Data';
-//import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from './BooksAPI';
 
 class PickBookShelf extends Component {
   static propTypes = {
-    bookId: PropTypes.number.isRequired,
+    bookId: PropTypes.string.isRequired,
+    setBookShelf: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired
+  }
+
+  setBookShelf = (shelf) => {
+    BooksAPI.get(this.props.bookId).then((book) => {
+      BooksAPI.update(book, shelf).then((res) => {
+        this.props.setBookShelf(book, shelf);
+        this.props.goBack();
+      });
+    });
   }
 
   render() {
@@ -18,9 +28,9 @@ class PickBookShelf extends Component {
         </div>
 
         <ol className="book-shelf-title-grid">
-          <li>{Data.currentlyReading.title}</li>
-          <li>{Data.wantToRead.title}</li>
-          <li>{Data.read.title}</li>
+          <li><a onClick={() => { this.setBookShelf(Data.currentlyReading.value) }}>{Data.currentlyReading.title}</a></li>
+          <li><a onClick={() => { this.setBookShelf(Data.wantToRead.value) }}>{Data.wantToRead.title}</a></li>
+          <li><a onClick={() => { this.setBookShelf(Data.read.value) }}>{Data.read.title}</a></li>
         </ol>
 
         <div className="close-set-book-shelf">

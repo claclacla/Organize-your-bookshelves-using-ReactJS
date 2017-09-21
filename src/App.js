@@ -34,9 +34,9 @@ class BooksApp extends React.Component {
       return state;
     });
 
-    BooksAPI.update(book, shelf).then((res) => {
+    //BooksAPI.update(book, shelf).then((res) => {
 
-    });
+    //});
   }
 
   render() {
@@ -47,9 +47,8 @@ class BooksApp extends React.Component {
         )} />
         <Route path="/pick-book-shelf" render={(routeProps) => {
           var queryParams = Util.getQueryParams(routeProps.location.search);
-          var bookId = parseInt(queryParams.bookId, 10);
 
-          return (<PickBookShelf bookId={bookId} goBack={routeProps.history.goBack}/>);
+          return (<PickBookShelf bookId={queryParams.bookId} setBookShelf={this.setBookShelf} goBack={routeProps.history.goBack}/>);
           }} />
         <Route path="/search" render={(routeProps) => {
           var queryParams = Util.getQueryParams(routeProps.location.search);
