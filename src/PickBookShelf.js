@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Data from './Data';
 
 class PickBookShelf extends Component {
+  static propTypes = {
+    goBack: PropTypes.func.isRequired
+  }
+
   render() {
     return (
       <div className="set-book-shelf">
@@ -17,8 +21,8 @@ class PickBookShelf extends Component {
           <li>{Data.read.title}</li>
         </ol>
 
-        <div className="open-search">
-          <Link to="/">Got to home</Link>
+        <div className="close-set-book-shelf">
+          <a onClick={this.props.goBack}></a>
         </div>
       </div>
     );

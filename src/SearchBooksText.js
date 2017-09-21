@@ -8,12 +8,16 @@ class SearchBooksText extends Component {
   constructor(props) {
     super(props);
 
+    var searchText = "";
+
     if(props.searchText) {
-      this.state = {
-        searchText: props.searchText
-      };
-      this.props.search(props.searchText);
+      searchText = props.searchText;
+      this.props.search(searchText);
     }
+
+    this.state = {
+      searchText: searchText
+    };
   }
 
   static propTypes = {
