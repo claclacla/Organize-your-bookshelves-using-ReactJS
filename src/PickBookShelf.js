@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Data from './Data';
+//import * as BooksAPI from './BooksAPI';
 
 class PickBookShelf extends Component {
   static propTypes = {
+    bookId: PropTypes.number.isRequired,
     goBack: PropTypes.func.isRequired
   }
 

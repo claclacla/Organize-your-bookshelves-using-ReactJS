@@ -46,9 +46,10 @@ class BooksApp extends React.Component {
           <ListBooks books={this.state.books} setBookShelf={this.setBookShelf} />
         )} />
         <Route path="/pick-book-shelf" render={(routeProps) => {
-          //var queryParams = Util.getQueryParams(routeProps.location.search);
+          var queryParams = Util.getQueryParams(routeProps.location.search);
+          var bookId = parseInt(queryParams.bookId, 10);
 
-          return (<PickBookShelf goBack={routeProps.history.goBack}/>);
+          return (<PickBookShelf bookId={bookId} goBack={routeProps.history.goBack}/>);
           }} />
         <Route path="/search" render={(routeProps) => {
           var queryParams = Util.getQueryParams(routeProps.location.search);
