@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import * as BooksAPI from './BooksAPI';
-import Util from './Util';
 import SearchBooksText from './SearchBooksText';
 import Book from './Book';
 
 class SearchBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
+    queryParams: PropTypes.object.isRequired,
     setBookShelf: PropTypes.func.isRequired
   }
 
@@ -17,20 +17,11 @@ class SearchBooks extends Component {
     searchedBooks: []
   }
 
-  componentDidMount() {
-    var queryString = this.props.routeProps.location.search;
-    var queryParams = Util.getQueryParams(queryString);
-    
-    if(queryParams.hasOwnProperty("text")) {
-      this.search(queryParams.text);
-    }
-  }
-
   setSearchedBookShelf = (searchedBooks) => {
     searchedBooks = searchedBooks.map(searchedBook => {
       var book = this.props.books.find(book => book.id === searchedBook.id);
 
-      if(book) {
+      if (book) {
         searchedBook.shelf = book.shelf;
       }
 
@@ -88,7 +79,7 @@ class SearchBooks extends Component {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
-            <SearchBooksText search={this.search} />
+            <SearchBooksText searchText={this.props.queryParams.text} search={this.search} />
           </div>
         </div>
         <div className="search-books-results">
