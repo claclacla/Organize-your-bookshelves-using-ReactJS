@@ -23,10 +23,6 @@ class SearchBooksText extends Component {
     search: PropTypes.func.isRequired
   }
 
-  state = {
-    searchText: ""
-  }
-
   search(searchText) {
     this.queue.push(() => {
       return new Promise((resolve, reject) => {
