@@ -36,6 +36,7 @@ class BookDetail extends Component {
           <h1>{this.state.book.title}</h1>
         </div>
         <div className="list-books-content">
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + this.state.book.imageLinks.thumbnail + ')' }}></div>
         </div>
         <div className="go-back">
           <a onClick={() => { this.props.goBack() }}>Add a book</a>
