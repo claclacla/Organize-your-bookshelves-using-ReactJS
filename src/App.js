@@ -5,6 +5,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
+import BookDetail from './BookDetail';
 
 class BooksApp extends React.Component {
   state = {
@@ -46,6 +47,11 @@ class BooksApp extends React.Component {
         <Route path="/search" render={() => (
           <SearchBooks books={this.state.books} setBookShelf={this.setBookShelf} />
         )} />
+        <Route path="/book/:bookId" render={(routeProps) => {
+          return (
+            <BookDetail bookId={routeProps.match.params.bookId} goBack={routeProps.history.goBack} />
+          );
+        }} />
       </div>
     );
   }
