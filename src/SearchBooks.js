@@ -8,6 +8,7 @@ import Book from './Book';
 
 class SearchBooks extends Component {
   static propTypes = {
+    appRepository: PropTypes.object.isRequired,
     books: PropTypes.array.isRequired,
     setBookShelf: PropTypes.func.isRequired
   }
@@ -78,7 +79,7 @@ class SearchBooks extends Component {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
-            <SearchBooksText search={this.search} />
+            <SearchBooksText appRepository={this.props.appRepository} search={this.search} />
           </div>
         </div>
         <div className="search-books-results">

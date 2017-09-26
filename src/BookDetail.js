@@ -16,7 +16,6 @@ class BookDetail extends Component {
   componentDidMount() {
     BooksAPI.get(this.props.bookId).then((book) => {
       this.setState({ book });
-      console.log(book);
     });
   }
 

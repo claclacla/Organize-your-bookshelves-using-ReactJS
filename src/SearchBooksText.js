@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Queue from './Queue';
+import Queue from './lib/Queue';
 
 class SearchBooksText extends Component {
   constructor(props) {
     super(props);
 
     this.queue = new Queue();
+    this.state = {searchText: ""};
 
-    var searchText = localStorage.getItem("searchText");
+    var searchText = props.appRepository.getById("searchText");
 
     if (searchText) {
       this.state = {
@@ -20,6 +21,7 @@ class SearchBooksText extends Component {
   }
 
   static propTypes = {
+    appRepository: PropTypes.object.isRequired,
     search: PropTypes.func.isRequired
   }
 
@@ -36,7 +38,7 @@ class SearchBooksText extends Component {
   setSearchText = (event) => {
     var searchText = event.target.value;
 
-    localStorage.setItem("searchText", searchText);
+    this.props.appRepository.add({searchText: searchText});
 
     this.setState({ searchText });
     this.search(searchText);

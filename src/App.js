@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
+import AppLocalStorageRepository from './repositories/LocalStorage/AppLocalStorageRepository';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import SearchBooks from './SearchBooks';
@@ -8,8 +9,14 @@ import ListBooks from './ListBooks';
 import BookDetail from './BookDetail';
 
 class BooksApp extends React.Component {
-  state = {
-    books: []
+  constructor() {
+    super();
+    
+    this.state = {
+      books: []
+    };
+
+    this.appLocalStorageRepository = new AppLocalStorageRepository();
   }
 
   componentDidMount() {
@@ -45,7 +52,7 @@ class BooksApp extends React.Component {
           <ListBooks books={this.state.books} setBookShelf={this.setBookShelf} />
         )} />
         <Route path="/search" render={() => (
-          <SearchBooks books={this.state.books} setBookShelf={this.setBookShelf} />
+          <SearchBooks appRepository={this.appLocalStorageRepository} books={this.state.books} setBookShelf={this.setBookShelf} />
         )} />
         <Route path="/book/:bookId" render={(routeProps) => {
           return (
