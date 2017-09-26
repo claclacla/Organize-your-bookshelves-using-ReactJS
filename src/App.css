@@ -175,6 +175,36 @@ body, .app {
 
 /* book detail */
 
+.book-detail-content {
+  border: 1px solid red;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /*flex: 1;*/
+}
+
+.book-detail-cover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  background: #eee;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  margin-left: -170px;
+}
+
+.book-detail-text {
+  width: 40%;
+  right: 10%;
+  top: 30px;
+  height: 400px;
+  position: absolute;
+}
+
+.book-detail-text h2 {
+  padding: 0px;
+  margin: 0px;
+}
+
 .go-back {
   position: fixed;
   right: 25px;

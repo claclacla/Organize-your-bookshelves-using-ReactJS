@@ -16,6 +16,7 @@ class BookDetail extends Component {
   componentDidMount() {
     BooksAPI.get(this.props.bookId).then((book) => {
       this.setState({ book });
+      console.log(book);
     });
   }
 
@@ -35,8 +36,16 @@ class BookDetail extends Component {
         <div className="list-books-title">
           <h1>{this.state.book.title}</h1>
         </div>
-        <div className="list-books-content">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + this.state.book.imageLinks.thumbnail + ')' }}></div>
+        <div className="book-detail-content">
+          <div className="book-detail-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + this.state.book.imageLinks.thumbnail + ')' }}></div>
+          <div className="book-detail-text">
+            <h2>{this.state.book.title}</h2>
+            {this.state.book.subtitle} <br/><br/>
+            <b>Publisher:</b> {this.state.book.publisher} <br/>
+            <b>Pages:</b> {this.state.book.pageCount}
+            <br/><br/>
+            {this.state.book.description}
+          </div>
         </div>
         <div className="go-back">
           <a onClick={() => { this.props.goBack() }}>Add a book</a>
