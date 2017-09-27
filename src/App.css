@@ -8,6 +8,14 @@ body, .app {
   background: white;
 }
 
+.cursor-pointer {
+  cursor: pointer
+}
+
+.color-green {
+  color: #2e7c31;
+}
+
 /* main page */
 
 .list-books-title {

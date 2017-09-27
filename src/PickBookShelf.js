@@ -7,6 +7,7 @@ import * as BooksAPI from './BooksAPI';
 class PickBookShelf extends Component {
   static propTypes = {
     bookId: PropTypes.string.isRequired,
+    bookShelf: PropTypes.string.isRequired,
     setBookShelf: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired
   }
@@ -21,6 +22,26 @@ class PickBookShelf extends Component {
   }
 
   render() {
+    var currentlyReadingClasses = "cursor-pointer";
+    var wantToReadClasses = "cursor-pointer";
+    var readClasses = "cursor-pointer";
+    var noneClasses = "cursor-pointer";
+
+    switch (this.props.bookShelf) {
+      case Data.currentlyReading.value:
+        currentlyReadingClasses += " color-green";
+        break;
+      case Data.wantToRead.value:
+        wantToReadClasses += " color-green";
+        break;
+      case Data.read.value:
+        readClasses += " color-green";
+        break;
+      default:
+        noneClasses += " color-green";
+        break;
+    }
+
     return (
       <div className="set-book-shelf">
         <div className="set-book-shelf-title">
@@ -28,9 +49,10 @@ class PickBookShelf extends Component {
         </div>
 
         <ol className="book-shelf-title-grid">
-          <li><a onClick={() => { this.setBookShelf(Data.currentlyReading.value) }}>{Data.currentlyReading.title}</a></li>
-          <li><a onClick={() => { this.setBookShelf(Data.wantToRead.value) }}>{Data.wantToRead.title}</a></li>
-          <li><a onClick={() => { this.setBookShelf(Data.read.value) }}>{Data.read.title}</a></li>
+          <li><div className={currentlyReadingClasses} onClick={() => { this.setBookShelf(Data.currentlyReading.value) }}>{Data.currentlyReading.title}</div></li>
+          <li><div className={wantToReadClasses} onClick={() => { this.setBookShelf(Data.wantToRead.value) }}>{Data.wantToRead.title}</div></li>
+          <li><div className={readClasses} onClick={() => { this.setBookShelf(Data.read.value) }}>{Data.read.title}</div></li>
+          <li><div className={noneClasses} onClick={() => { this.setBookShelf(Data.none.value) }}>{Data.none.title}</div></li>
         </ol>
 
         <div className="close-set-book-shelf">

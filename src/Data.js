@@ -13,6 +13,11 @@ class Data {
     title: "Want to read",
     value: "wantToRead"
   };
+
+  static none = {
+    title: "none",
+    value: "none"
+  };
 }
 
 export default Data
