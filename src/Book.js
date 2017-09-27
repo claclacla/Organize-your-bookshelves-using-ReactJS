@@ -38,7 +38,9 @@ class Book extends Component {
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
+            <Link to={"/book/" + book.id}>
+              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
+            </Link>
           </div>
           <Link to={"/pick-book-shelf?bookId=" + book.id}><div className="book-shelf-changer"></div></Link>
           <div className="book-shelf">{bookShelf}</div>
