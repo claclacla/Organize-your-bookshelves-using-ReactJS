@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import AppLocalStorageRepository from './repositories/LocalStorage/AppLocalStorageRepository';
+import Util from './lib/Util';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import SearchBooks from './SearchBooks';
