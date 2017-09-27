@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import * as BooksAPI from './BooksAPI';
@@ -39,10 +40,13 @@ class BookDetail extends Component {
           <div className="book-detail-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + this.state.book.imageLinks.thumbnail + ')' }}></div>
           <div className="book-detail-text">
             <h2>{this.state.book.title}</h2>
-            {this.state.book.subtitle} <br/><br/>
-            <b>Publisher:</b> {this.state.book.publisher} <br/>
+            {this.state.book.subtitle} <br /><br />
+            <b>Publisher:</b> {this.state.book.publisher} <br />
             <b>Pages:</b> {this.state.book.pageCount}
-            <br/><br/>
+            <br />
+            <b className="inline">Shelf:&nbsp;</b> <div className="inline">{this.state.book.shelf}</div>
+            <Link to={"/pick-book-shelf?bookId=" + this.state.book.id + "&bookShelf=" + this.state.book.shelf}><div className="book-detail-shelf-changer inline"></div></Link>
+            <br /><br />
             {this.state.book.description}
           </div>
         </div>

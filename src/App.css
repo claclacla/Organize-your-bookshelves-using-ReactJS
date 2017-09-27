@@ -16,6 +16,10 @@ body, .app {
   color: #2e7c31;
 }
 
+.inline {
+  float: left;
+}
+
 /* main page */
 
 .list-books-title {
@@ -258,6 +262,18 @@ body, .app {
 .book-detail-text h2 {
   padding: 0px;
   margin: 0px;
+}
+
+.book-detail-shelf-changer {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #60ac5d;
+  background-image: url('./icons/arrow-drop-down.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .go-back {
