@@ -1,16 +1,23 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
+import AppLocalStorageRepository from './repositories/LocalStorage/AppLocalStorageRepository';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
-import Util from './Util';
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
+import BookDetail from './BookDetail';
 import PickBookShelf from './PickBookShelf';
 
 class BooksApp extends React.Component {
-  state = {
-    books: []
+  constructor() {
+    super();
+    
+    this.state = {
+      books: []
+    };
+
+    this.appLocalStorageRepository = new AppLocalStorageRepository();
   }
 
   componentDidMount() {
@@ -50,10 +57,13 @@ class BooksApp extends React.Component {
 
           return (<PickBookShelf bookId={queryParams.bookId} setBookShelf={this.setBookShelf} goBack={routeProps.history.goBack}/>);
           }} />
-        <Route path="/search" render={(routeProps) => {
-          var queryParams = Util.getQueryParams(routeProps.location.search);
-
-          return (<SearchBooks searchText={queryParams.text} books={this.state.books} setBookShelf={this.setBookShelf} />);
+        <Route path="/search" render={() => (
+          <SearchBooks appRepository={this.appLocalStorageRepository} books={this.state.books} setBookShelf={this.setBookShelf} />
+        )} />
+        <Route path="/book/:bookId" render={(routeProps) => {
+          return (
+            <BookDetail bookId={routeProps.match.params.bookId} goBack={routeProps.history.goBack} />
+          );
         }} />
       </div>
     );

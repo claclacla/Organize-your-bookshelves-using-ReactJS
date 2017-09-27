@@ -1,33 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Queue from './lib/Queue';
+
 class SearchBooksText extends Component {
-
-  //  https://facebook.github.io/react/docs/state-and-lifecycle.html#adding-local-state-to-a-class
-
   constructor(props) {
     super(props);
 
-    var searchText = "";
+    this.queue = new Queue();
+    this.state = {searchText: ""};
 
-    if(props.searchText) {
-      searchText = props.searchText;
-      this.props.search(searchText);
+    var searchText = props.appRepository.getById("searchText");
+
+    if (searchText) {
+      this.state = {
+        searchText: searchText
+      };
+      this.search(searchText);
     }
-
-    this.state = {
-      searchText: searchText
-    };
   }
 
   static propTypes = {
-    search: PropTypes.func.isRequired,
-    searchText: PropTypes.string
+    appRepository: PropTypes.object.isRequired,
+    search: PropTypes.func.isRequired
+  }
+
+  search(searchText) {
+    this.queue.push(() => {
+      return new Promise((resolve, reject) => {
+        this.props.search(searchText).then((res) => {
+          resolve(res);
+        });
+      });
+    });
   }
 
   setSearchText = (searchText) => {
+    this.props.appRepository.add({searchText: searchText});
+
     this.setState({ searchText });
-    this.props.search(searchText);
+    this.search(searchText);
   }
 
   render() {
