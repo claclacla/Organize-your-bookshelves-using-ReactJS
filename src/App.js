@@ -21,26 +21,17 @@ class BooksApp extends React.Component {
     this.appLocalStorageRepository = new AppLocalStorageRepository();
   }
 
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books });
-    })
+  getBooks = () => {
+    return new Promise((resolve, reject) => {
+      BooksAPI.getAll().then((books) => {
+        this.setState({ books });
+        resolve();
+      })
+    });
   }
 
-  setBookShelf = (book, shelf) => {
-    var bookIdx = this.state.books.findIndex(stateBook => stateBook.id === book.id);
-
-    this.setState((state) => {
-      if (bookIdx >= 0) {
-        state.books[bookIdx].shelf = shelf;
-      }
-      else {
-        book.shelf = shelf;
-        state.books.push(book);
-      }
-
-      return state;
-    });
+  componentDidMount() {
+    this.getBooks();
   }
 
   render() {
@@ -52,7 +43,7 @@ class BooksApp extends React.Component {
         <Route path="/pick-book-shelf" render={(routeProps) => {
           var queryParams = Util.getQueryParams(routeProps.location.search);
 
-          return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} setBookShelf={this.setBookShelf} goBack={routeProps.history.goBack}/>);
+          return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} getBooks={this.getBooks} goBack={routeProps.history.goBack}/>);
           }} />
         <Route path="/search" render={() => (
           <SearchBooks appRepository={this.appLocalStorageRepository} books={this.state.books}/>

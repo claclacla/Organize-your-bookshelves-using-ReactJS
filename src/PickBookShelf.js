@@ -5,11 +5,13 @@ import Loader from 'react-loader';
 import Data from './Data';
 import * as BooksAPI from './BooksAPI';
 
+import BookDTO from './dtos/BookDTO';
+
 class PickBookShelf extends Component {
   static propTypes = {
     bookId: PropTypes.string.isRequired,
     bookShelf: PropTypes.string.isRequired,
-    setBookShelf: PropTypes.func.isRequired,
+    getBooks: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired
   }
 
@@ -18,11 +20,12 @@ class PickBookShelf extends Component {
   }
 
   setBookShelf = (shelf) => {
-    this.setState({bookShelfNotSelected: false});
+    this.setState({ bookShelfNotSelected: false });
 
-    BooksAPI.get(this.props.bookId).then((book) => {
-      BooksAPI.update(book, shelf).then((res) => {
-        this.props.setBookShelf(book, shelf);
+    var bookDTO = new BookDTO(this.props.bookId);
+
+    BooksAPI.update(bookDTO, shelf).then((res) => {
+      this.props.getBooks().then(() => {
         this.props.goBack();
       });
     });
@@ -56,12 +59,12 @@ class PickBookShelf extends Component {
         </div>
 
         <Loader loaded={this.state.bookShelfNotSelected}>
-        <ol className="book-shelf-title-grid">
-          <li><div className={currentlyReadingClasses} onClick={() => { this.setBookShelf(Data.currentlyReading.value) }}>{Data.currentlyReading.title}</div></li>
-          <li><div className={wantToReadClasses} onClick={() => { this.setBookShelf(Data.wantToRead.value) }}>{Data.wantToRead.title}</div></li>
-          <li><div className={readClasses} onClick={() => { this.setBookShelf(Data.read.value) }}>{Data.read.title}</div></li>
-          <li><div className={noneClasses} onClick={() => { this.setBookShelf(Data.none.value) }}>{Data.none.title}</div></li>
-        </ol>
+          <ol className="book-shelf-title-grid">
+            <li><div className={currentlyReadingClasses} onClick={() => { this.setBookShelf(Data.currentlyReading.value) }}>{Data.currentlyReading.title}</div></li>
+            <li><div className={wantToReadClasses} onClick={() => { this.setBookShelf(Data.wantToRead.value) }}>{Data.wantToRead.title}</div></li>
+            <li><div className={readClasses} onClick={() => { this.setBookShelf(Data.read.value) }}>{Data.read.title}</div></li>
+            <li><div className={noneClasses} onClick={() => { this.setBookShelf(Data.none.value) }}>{Data.none.title}</div></li>
+          </ol>
         </Loader>
 
         <div className="close-set-book-shelf">
