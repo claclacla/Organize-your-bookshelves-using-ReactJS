@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Loader from 'react-loader';
 
 import Data from './Data';
-import * as BooksAPI from './BooksAPI';
+import AppLocalStorageRepository from './repositories/LocalStorage/AppLocalStorageRepository';
 
 import BookDTO from './dtos/BookDTO';
 
