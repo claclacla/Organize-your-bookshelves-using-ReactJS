@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import * as BooksAPI from './BooksAPI';
-
 class BookDetail extends Component {
   static propTypes = {
     bookId: PropTypes.string.isRequired,
+    bookRepository: PropTypes.object.isRequired,
     goBack: PropTypes.func.isRequired
   }
 
@@ -15,7 +14,7 @@ class BookDetail extends Component {
   }
 
   componentDidMount() {
-    BooksAPI.get(this.props.bookId).then((book) => {
+    this.props.bookRepository.getById(this.props.bookId).then((book) => {
       this.setState({ book });
     });
   }

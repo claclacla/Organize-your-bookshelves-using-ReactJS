@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import Loader from 'react-loader';
 
 import Data from './Data';
-import AppLocalStorageRepository from './repositories/LocalStorage/AppLocalStorageRepository';
-
 import BookDTO from './dtos/BookDTO';
 
 class PickBookShelf extends Component {
   static propTypes = {
     bookId: PropTypes.string.isRequired,
     bookShelf: PropTypes.string.isRequired,
+    bookRepository: PropTypes.object.isRequired,
     getBooks: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired
   }
@@ -23,8 +22,9 @@ class PickBookShelf extends Component {
     this.setState({ bookShelfNotSelected: false });
 
     var bookDTO = new BookDTO(this.props.bookId);
+    bookDTO.shelf = shelf;
 
-    BooksAPI.update(bookDTO, shelf).then((res) => {
+    this.props.bookRepository.update(bookDTO).then((res) => {
       this.props.getBooks().then(() => {
         this.props.goBack();
       });

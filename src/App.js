@@ -2,8 +2,8 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import AppLocalStorageRepository from './repositories/LocalStorage/AppLocalStorageRepository';
+import BookRESTRepository from './repositories/REST/BookRESTRepository';
 import Util from './lib/Util';
-import * as BooksAPI from './BooksAPI';
 import './App.css';
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
@@ -19,11 +19,12 @@ class BooksApp extends React.Component {
     };
 
     this.appLocalStorageRepository = new AppLocalStorageRepository();
+    this.bookRepository = new BookRESTRepository();
   }
 
   getBooks = () => {
     return new Promise((resolve, reject) => {
-      BooksAPI.getAll().then((books) => {
+      this.bookRepository.get().then((books) => {
         this.setState({ books });
         resolve();
       })
@@ -43,14 +44,14 @@ class BooksApp extends React.Component {
         <Route path="/pick-book-shelf" render={(routeProps) => {
           var queryParams = Util.getQueryParams(routeProps.location.search);
 
-          return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} getBooks={this.getBooks} goBack={routeProps.history.goBack}/>);
+          return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} bookRepository={this.bookRepository} getBooks={this.getBooks} goBack={routeProps.history.goBack}/>);
           }} />
         <Route path="/search" render={() => (
-          <SearchBooks appRepository={this.appLocalStorageRepository} books={this.state.books}/>
+          <SearchBooks appRepository={this.appLocalStorageRepository} bookRepository={this.bookRepository} books={this.state.books}/>
         )} />
         <Route path="/book/:bookId" render={(routeProps) => {
           return (
-            <BookDetail bookId={routeProps.match.params.bookId} goBack={routeProps.history.goBack} />
+            <BookDetail bookId={routeProps.match.params.bookId} bookRepository={this.bookRepository} goBack={routeProps.history.goBack} />
           );
         }} />
       </div>

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import * as BooksAPI from './BooksAPI';
 import SearchBooksText from './SearchBooksText';
 import Book from './Book';
 
 class SearchBooks extends Component {
   static propTypes = {
     appRepository: PropTypes.object.isRequired,
+    bookRepository: PropTypes.object.isRequired,
     books: PropTypes.array.isRequired
   }
 
@@ -37,7 +37,7 @@ class SearchBooks extends Component {
         return resolve([]);
       }
 
-      BooksAPI.search(text, 100).then((searchedBooks) => {
+      this.props.bookRepository.get(text).then((searchedBooks) => {
         if (!Array.isArray(searchedBooks)) {
           searchedBooks = [];
         }

@@ -1,11 +1,18 @@
 import * as BooksAPI from './BooksAPI';
 
 class BookRESTRepository {
-  get() {
+  get(query) {
     return new Promise((resolve, reject) => {
-      BooksAPI.getAll().then((books) => {
-        resolve(books);
-      })
+      if(query === undefined) {
+        BooksAPI.getAll().then((books) => {
+          resolve(books);
+        });
+      }
+      else {
+        BooksAPI.search(query).then((books) => {
+          resolve(books);
+        });
+      }
     });
   }
 
