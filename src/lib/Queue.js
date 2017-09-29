@@ -1,29 +1,29 @@
 class Queue {
   constructor() {
-    this.working = false;
-    this.tasks = [];
+    this.isWorking = false;
+    this.processes = [];
   }
 
-  push(task) {
-    if (this.working) {
-      return this.tasks.push(task);
+  push(process) {
+    if (this.isWorking) {
+      return this.processes.push(process);
     }
 
-    var exec = (task) => {
-      this.working = true;
+    var worker = (process) => {
+      this.isWorking = true;
 
-      task().then((res) => {
-        if (this.tasks.length === 0) {
-          this.working = false;
+      process().then((res) => {
+        if (this.processes.length === 0) {
+          this.isWorking = false;
           return;
         }
 
-        var nextTask = this.tasks.shift();
-        exec(nextTask);
+        var nextProcess = this.processes.shift();
+        worker(nextProcess);
       });
     };
 
-    exec(task);
+    worker(process);
   }
 }
 
