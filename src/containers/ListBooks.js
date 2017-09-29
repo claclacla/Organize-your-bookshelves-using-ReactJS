@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Data from './Data';
-import BookShelf from './BookShelf';
+import Data from '../Data';
+import BookShelf from '../components/BookShelf';
 
 class ListBooks extends Component {
   static propTypes = {

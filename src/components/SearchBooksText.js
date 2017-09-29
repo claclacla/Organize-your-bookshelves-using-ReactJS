@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Queue from './lib/Queue';
+import Queue from '../lib/Queue';
 
 class SearchBooksText extends Component {
   constructor(props) {

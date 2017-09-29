@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Loader from 'react-loader';
 import * as PubSubJs from 'pubsub-js';
 
-import Data from './Data';
-import BookDTO from './dtos/BookDTO';
+import Data from '../Data';
+import BookDTO from '../dtos/BookDTO';
 
 class PickBookShelf extends Component {
   static propTypes = {

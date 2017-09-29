@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import SearchBooksText from './SearchBooksText';
-import Book from './Book';
+import SearchBooksText from '../components/SearchBooksText';
+import Book from '../components/Book';
 
 class SearchBooks extends Component {
   static propTypes = {

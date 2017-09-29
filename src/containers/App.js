@@ -2,10 +2,10 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import * as PubSubJs from 'pubsub-js';
 
-import AppLocalStorageRepository from './repositories/LocalStorage/AppLocalStorageRepository';
-import BookRESTRepository from './repositories/REST/BookRESTRepository';
-import Util from './lib/Util';
-import './App.css';
+import AppLocalStorageRepository from '../repositories/LocalStorage/AppLocalStorageRepository';
+import BookRESTRepository from '../repositories/REST/BookRESTRepository';
+import Util from '../lib/Util';
+import '../App.css';
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
 import BookDetail from './BookDetail';
