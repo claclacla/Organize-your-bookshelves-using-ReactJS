@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import * as BooksAPI from './BooksAPI';
-import SearchBooksText from './SearchBooksText';
-import Book from './Book';
+import SearchBooksText from '../components/SearchBooksText';
+import Book from '../components/Book';
 
 class SearchBooks extends Component {
   static propTypes = {
     appRepository: PropTypes.object.isRequired,
-    books: PropTypes.array.isRequired,
-    setBookShelf: PropTypes.func.isRequired
+    bookRepository: PropTypes.object.isRequired,
+    books: PropTypes.array.isRequired
   }
 
   state = {
@@ -21,7 +20,7 @@ class SearchBooks extends Component {
     searchedBooks = searchedBooks.map(searchedBook => {
       var book = this.props.books.find(book => book.id === searchedBook.id);
 
-      if(book) {
+      if (book) {
         searchedBook.shelf = book.shelf;
       }
 
@@ -38,7 +37,7 @@ class SearchBooks extends Component {
         return resolve([]);
       }
 
-      BooksAPI.search(text, 100).then((searchedBooks) => {
+      this.props.bookRepository.get(text).then((searchedBooks) => {
         if (!Array.isArray(searchedBooks)) {
           searchedBooks = [];
         }
@@ -47,19 +46,6 @@ class SearchBooks extends Component {
         this.setState({ searchedBooks });
         resolve(searchedBooks);
       });
-    });
-  }
-
-  // Add a decorator function to App.setBookShelf() method
-
-  setBookShelf = (book, shelf) => {
-    this.props.setBookShelf(book, shelf);
-
-    var bookIdx = this.state.searchedBooks.findIndex(stateBook => stateBook.id === book.id);
-
-    this.setState((state) => {
-      state.searchedBooks[bookIdx].shelf = shelf;
-      return state;
     });
   }
 
@@ -85,7 +71,7 @@ class SearchBooks extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {searchedBooks.map(book =>
-              <Book key={book.id} book={book} setBookShelf={this.setBookShelf} />
+              <Book key={book.id} book={book}/>
             )}
           </ol>
         </div>

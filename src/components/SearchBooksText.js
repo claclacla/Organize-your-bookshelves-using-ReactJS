@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Queue from './lib/Queue';
+import Queue from '../lib/Queue';
 
 class SearchBooksText extends Component {
   constructor(props) {
@@ -35,9 +35,7 @@ class SearchBooksText extends Component {
     });
   }
 
-  setSearchText = (event) => {
-    var searchText = event.target.value;
-
+  setSearchText = (searchText) => {
     this.props.appRepository.add({searchText: searchText});
 
     this.setState({ searchText });
@@ -46,7 +44,7 @@ class SearchBooksText extends Component {
 
   render() {
     return (
-      <input type="text" onChange={this.setSearchText} value={this.state.searchText} placeholder="Search by title or author" />
+      <input type="text" onChange={(event) => {this.setSearchText(event.target.value)}} value={this.state.searchText} placeholder="Search by title or author" />
     );
   }
 }

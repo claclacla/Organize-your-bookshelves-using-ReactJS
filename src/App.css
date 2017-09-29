@@ -8,6 +8,18 @@ body, .app {
   background: white;
 }
 
+.cursor-pointer {
+  cursor: pointer
+}
+
+.color-green {
+  color: #2e7c31;
+}
+
+.inline {
+  float: left;
+}
+
 /* main page */
 
 .list-books-title {
@@ -55,6 +67,48 @@ body, .app {
   border-radius: 50%;
   background: #2e7d32;
   background-image: url('./icons/add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  font-size: 0;
+}
+
+/* set book shelf page */
+
+.set-book-shelf-title {
+  padding: 10px 0;
+  background: #2e7c31;
+  text-align: center;
+}
+.set-book-shelf-title h1 {
+  font-weight: 400;
+  margin: 0;
+  color: white;
+}
+
+.book-shelf-title-grid {
+  list-style-type: none;
+  padding-top: 25px;
+}
+.book-shelf-title-grid li {
+  padding: 15px 25px;
+  text-align: left;
+  font-size: 2em;
+}
+
+.close-set-book-shelf {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+}
+.close-set-book-shelf a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #2e7d32;
+  background-image: url('./icons/arrow-back.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px;
@@ -120,14 +174,19 @@ body, .app {
 }
 
 .book {
+  position: relative;
   width: 140px;
 }
 .book-title,
 .book-authors {
   font-size: 0.8em;
 }
-.book-title {
+.book-shelf {
   margin-top: 10px;
+  color: #2e7d32;
+}
+.book-title {
+  margin-top: 2px;
 }
 .book-authors {
   color: #999;
@@ -142,10 +201,10 @@ body, .app {
 
 .book-shelf-changer {
   position: absolute;
-  right: 0;
-  bottom: -10px;
-  width: 40px;
-  height: 40px;
+  right: -6px;
+  top: 210px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #60ac5d;
   background-image: url('./icons/arrow-drop-down.svg');
@@ -203,6 +262,18 @@ body, .app {
 .book-detail-text h2 {
   padding: 0px;
   margin: 0px;
+}
+
+.book-detail-shelf-changer {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #60ac5d;
+  background-image: url('./icons/arrow-drop-down.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .go-back {
