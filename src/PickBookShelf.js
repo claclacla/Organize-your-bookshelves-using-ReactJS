@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader';
+import * as PubSubJs from 'pubsub-js';
 
 import Data from './Data';
 import BookDTO from './dtos/BookDTO';
@@ -10,7 +11,6 @@ class PickBookShelf extends Component {
     bookId: PropTypes.string.isRequired,
     bookShelf: PropTypes.string.isRequired,
     bookRepository: PropTypes.object.isRequired,
-    getBooks: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired
   }
 
@@ -25,9 +25,8 @@ class PickBookShelf extends Component {
     bookDTO.shelf = shelf;
 
     this.props.bookRepository.update(bookDTO).then((res) => {
-      this.props.getBooks().then(() => {
-        this.props.goBack();
-      });
+      PubSubJs.publish("books.get");
+      this.props.goBack();
     });
   }
 

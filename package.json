@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "prop-types": "^15.5.8",
+    "pubsub-js": "^1.5.7",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-loader": "^2.4.2"
