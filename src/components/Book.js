@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-class Book extends Component {
-  static propTypes = {
-    book: PropTypes.object.isRequired
-  }
-
+const Book = function(props) {
   render() {
     const { book } = this.props;
 
@@ -32,6 +28,10 @@ class Book extends Component {
       </li>
     );
   }
+}
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired
 }
 
 export default Book
