@@ -41,17 +41,13 @@ class BooksApp extends React.Component {
 
       return state;
     });
-
-    //BooksAPI.update(book, shelf).then((res) => {
-
-    //});
   }
 
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <ListBooks books={this.state.books} setBookShelf={this.setBookShelf} />
+          <ListBooks books={this.state.books}/>
         )} />
         <Route path="/pick-book-shelf" render={(routeProps) => {
           var queryParams = Util.getQueryParams(routeProps.location.search);
@@ -59,7 +55,7 @@ class BooksApp extends React.Component {
           return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} setBookShelf={this.setBookShelf} goBack={routeProps.history.goBack}/>);
           }} />
         <Route path="/search" render={() => (
-          <SearchBooks appRepository={this.appLocalStorageRepository} books={this.state.books} setBookShelf={this.setBookShelf} />
+          <SearchBooks appRepository={this.appLocalStorageRepository} books={this.state.books}/>
         )} />
         <Route path="/book/:bookId" render={(routeProps) => {
           return (

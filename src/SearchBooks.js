@@ -9,8 +9,7 @@ import Book from './Book';
 class SearchBooks extends Component {
   static propTypes = {
     appRepository: PropTypes.object.isRequired,
-    books: PropTypes.array.isRequired,
-    setBookShelf: PropTypes.func.isRequired
+    books: PropTypes.array.isRequired
   }
 
   state = {
@@ -50,19 +49,6 @@ class SearchBooks extends Component {
     });
   }
 
-  // Add a decorator function to App.setBookShelf() method
-
-  setBookShelf = (book, shelf) => {
-    this.props.setBookShelf(book, shelf);
-
-    var bookIdx = this.state.searchedBooks.findIndex(stateBook => stateBook.id === book.id);
-
-    this.setState((state) => {
-      state.searchedBooks[bookIdx].shelf = shelf;
-      return state;
-    });
-  }
-
   render() {
     const { searchedBooks } = this.state;
 
@@ -85,7 +71,7 @@ class SearchBooks extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {searchedBooks.map(book =>
-              <Book key={book.id} book={book} setBookShelf={this.setBookShelf} />
+              <Book key={book.id} book={book}/>
             )}
           </ol>
         </div>

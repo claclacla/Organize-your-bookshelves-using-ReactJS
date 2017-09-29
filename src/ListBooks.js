@@ -7,8 +7,7 @@ import BookShelf from './BookShelf';
 
 class ListBooks extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired,
-    setBookShelf: PropTypes.func.isRequired
+    books: PropTypes.array.isRequired
   }
 
   render() {
@@ -21,9 +20,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf title="Currently reading" books={books.filter(book => book.shelf === Data.currentlyReading.value)} setBookShelf={this.props.setBookShelf}/>
-            <BookShelf title="Want to read" books={books.filter(book => book.shelf === Data.wantToRead.value)} setBookShelf={this.props.setBookShelf}/>
-            <BookShelf title="Read" books={books.filter(book => book.shelf === Data.read.value)} setBookShelf={this.props.setBookShelf}/>
+            <BookShelf title="Currently reading" books={books.filter(book => book.shelf === Data.currentlyReading.value)}/>
+            <BookShelf title="Want to read" books={books.filter(book => book.shelf === Data.wantToRead.value)}/>
+            <BookShelf title="Read" books={books.filter(book => book.shelf === Data.read.value)}/>
           </div>
         </div>
         <div className="open-search">

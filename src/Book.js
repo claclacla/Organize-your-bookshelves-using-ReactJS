@@ -2,17 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-// https://facebook.github.io/react/docs/lifting-state-up.html
-// https://facebook.github.io/react/docs/lifting-state-up.html#lifting-state-up
-
 class Book extends Component {
   static propTypes = {
-    book: PropTypes.object.isRequired,
-    setBookShelf: PropTypes.func.isRequired
-  }
-
-  setBookShelf = (event) => {
-    this.props.setBookShelf(this.props.book, event.target.value);
+    book: PropTypes.object.isRequired
   }
 
   render() {
@@ -23,16 +15,6 @@ class Book extends Component {
     if (bookShelf === undefined) {
       bookShelf = "none";
     }
-
-    /*
-            <select value={bookShelf} onChange={this.setBookShelf}>
-              <option value="none" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
-    */
 
     return (
       <li>
