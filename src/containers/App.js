@@ -22,8 +22,10 @@ class BooksApp extends React.Component {
     this.appLocalStorageRepository = new AppLocalStorageRepository();
     this.bookRepository = new BookRESTRepository();
 
-    PubSubJs.subscribe("books.get", () => {
-      this.getBooks();
+    PubSubJs.subscribe("books.get", (msg, cb) => {
+      this.getBooks().then(() => {
+        cb();
+      });
     });
   }
 

@@ -25,8 +25,9 @@ class PickBookShelf extends Component {
     bookDTO.shelf = shelf;
 
     this.props.bookRepository.update(bookDTO).then((res) => {
-      PubSubJs.publish("books.get");
-      this.props.goBack();
+      PubSubJs.publish("books.get", () => {
+        this.props.goBack();
+      });
     });
   }
 
