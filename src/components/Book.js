@@ -11,6 +11,10 @@ const Book = function (props) {
     bookShelf = "none";
   }
 
+  /*
+          <Link to={"/pick-book-shelf?bookId=" + book.id + "&bookShelf=" + book.shelf}><div className="book-shelf-changer"></div></Link>
+  */
+
   return (
     <li>
       <div className="book">
@@ -19,7 +23,15 @@ const Book = function (props) {
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
           </Link>
         </div>
-        <Link to={"/pick-book-shelf?bookId=" + book.id + "&bookShelf=" + book.shelf}><div className="book-shelf-changer"></div></Link>
+        <div className="book-shelf-changer">
+          <select>
+            <option value="none" disabled>Move to...</option>
+            <option value="currentlyReading">Currently Reading</option>
+            <option value="wantToRead">Want to Read</option>
+            <option value="read">Read</option>
+            <option value="none">None</option>
+          </select>
+        </div>
         <div className="book-shelf">{bookShelf}</div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{(Array.isArray(book.authors)) && book.authors.map((author, idx) => <div key={idx}>{author}</div>)}</div>
