@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as PubSubJs from 'pubsub-js';
 
-import BookDTO from '../dtos/BookDTO';
-
 class Book extends Component {
   constructor(props) {
     super(props);
@@ -21,19 +19,12 @@ class Book extends Component {
   }
 
   static propTypes = {
-    book: PropTypes.object.isRequired,
-    bookRepository: PropTypes.object.isRequired
+    book: PropTypes.object.isRequired
   }
 
   setBookShelf = (bookShelf) => {
     this.setState({ bookShelf });
-
-    var bookDTO = new BookDTO(this.props.book.id);
-    bookDTO.shelf = bookShelf;
-
-    this.props.bookRepository.update(bookDTO).then((res) => {
-      PubSubJs.publish("book.set.shelf", {book: this.props.book, shelf: bookShelf});
-    });
+    PubSubJs.publish("books.setBookShelf", { book: this.props.book, shelf: bookShelf });
   }
 
   render() {

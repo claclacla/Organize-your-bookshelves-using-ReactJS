@@ -8,7 +8,6 @@ import Book from '../components/Book';
 class SearchBooks extends Component {
   static propTypes = {
     appRepository: PropTypes.object.isRequired,
-    bookRepository: PropTypes.object.isRequired,
     books: PropTypes.array.isRequired
   }
 

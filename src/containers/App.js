@@ -14,7 +14,7 @@ import PickBookShelf from './PickBookShelf';
 class BooksApp extends React.Component {
   constructor() {
     super();
-    
+
     this.state = {
       books: []
     };
@@ -22,21 +22,28 @@ class BooksApp extends React.Component {
     this.appLocalStorageRepository = new AppLocalStorageRepository();
     this.bookRepository = new BookRESTRepository();
 
-    PubSubJs.subscribe("book.set.shelf", (msg, data) => {
+    PubSubJs.subscribe("books.setBookShelf", (msg, data) => {
       this.setBookShelf(data.book, data.shelf);
     });
   }
 
   setBookShelf = (book, shelf) => {
-    var bookIdx = this.state.books.findIndex(currentBook => currentBook.id === book.id);
+    var bookIdx = this.state.books.findIndex(stateBook => stateBook.id === book.id);
 
-    if(bookIdx >= 0) {
-      this.setState.books[bookIdx].shelf = shelf;
-    }
-    else {
-      book.shelf = shelf;
-      this.books.push(book);
-    }
+    book.shelf = shelf;
+
+    this.bookRepository.update(book).then((res) => {
+      this.setState((state) => {
+        if (bookIdx >= 0) {
+          state.books[bookIdx] = book;
+        }
+        else {
+          state.books.push(book);
+        }
+
+        return state;
+      });
+    });
   }
 
   getBooks = () => {
@@ -56,15 +63,15 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <ListBooks books={this.state.books} bookRepository={this.bookRepository}/>
+          <ListBooks books={this.state.books} />
         )} />
         <Route path="/pick-book-shelf" render={(routeProps) => {
           var queryParams = Util.getQueryParams(routeProps.location.search);
 
-          return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} bookRepository={this.bookRepository} goBack={routeProps.history.goBack}/>);
-          }} />
+          return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} bookRepository={this.bookRepository} goBack={routeProps.history.goBack} />);
+        }} />
         <Route path="/search" render={() => (
-          <SearchBooks appRepository={this.appLocalStorageRepository} bookRepository={this.bookRepository} books={this.state.books}/>
+          <SearchBooks appRepository={this.appLocalStorageRepository} books={this.state.books} />
         )} />
         <Route path="/book/:bookId" render={(routeProps) => {
           return (
