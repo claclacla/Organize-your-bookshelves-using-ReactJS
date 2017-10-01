@@ -22,11 +22,21 @@ class BooksApp extends React.Component {
     this.appLocalStorageRepository = new AppLocalStorageRepository();
     this.bookRepository = new BookRESTRepository();
 
-    PubSubJs.subscribe("books.get", (msg, cb) => {
-      this.getBooks().then(() => {
-        cb();
-      });
+    PubSubJs.subscribe("book.set.shelf", (msg, data) => {
+      this.setBookShelf(data.book, data.shelf);
     });
+  }
+
+  setBookShelf = (book, shelf) => {
+    var bookIdx = this.state.books.findIndex(currentBook => currentBook.id === book.id);
+
+    if(bookIdx >= 0) {
+      this.setState.books[bookIdx].shelf = shelf;
+    }
+    else {
+      book.shelf = shelf;
+      this.books.push(book);
+    }
   }
 
   getBooks = () => {

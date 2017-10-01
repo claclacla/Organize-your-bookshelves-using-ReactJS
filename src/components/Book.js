@@ -32,9 +32,7 @@ class Book extends Component {
     bookDTO.shelf = bookShelf;
 
     this.props.bookRepository.update(bookDTO).then((res) => {
-      //PubSubJs.publish("books.get", () => {
-      //  this.props.goBack();
-      //});
+      PubSubJs.publish("book.set.shelf", {book: this.props.book, shelf: bookShelf});
     });
   }
 
