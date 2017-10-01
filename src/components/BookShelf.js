@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Book from './Book';
 
 const BookShelf = function (props) {
-  const { title, books } = props;
+  const { title, books, bookRepository } = props;
 
   return (
     <div className="bookshelf">
@@ -12,7 +12,7 @@ const BookShelf = function (props) {
       <div className="bookshelf-books">
         <ol className="books-grid">
           {books.map((book, idx) =>
-            <Book key={idx} book={book} />
+            <Book key={idx} book={book} bookRepository={bookRepository} />
           )}
         </ol>
       </div>
@@ -22,7 +22,8 @@ const BookShelf = function (props) {
 
 BookShelf.propTypes = {
   title: PropTypes.string.isRequired,
-  books: PropTypes.array.isRequired
+  books: PropTypes.array.isRequired,
+  bookRepository: PropTypes.object.isRequired
 };
 
 export default BookShelf

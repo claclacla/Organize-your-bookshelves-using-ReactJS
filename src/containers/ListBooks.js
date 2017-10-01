@@ -6,7 +6,7 @@ import Data from '../Data';
 import BookShelf from '../components/BookShelf';
 
 const ListBooks = function (props) {
-  const { books } = props;
+  const { books, bookRepository } = props;
 
   return (
     <div className="list-books">
@@ -15,9 +15,9 @@ const ListBooks = function (props) {
       </div>
       <div className="list-books-content">
         <div>
-          <BookShelf title="Currently reading" books={books.filter(book => book.shelf === Data.currentlyReading.value)} />
-          <BookShelf title="Want to read" books={books.filter(book => book.shelf === Data.wantToRead.value)} />
-          <BookShelf title="Read" books={books.filter(book => book.shelf === Data.read.value)} />
+          <BookShelf title="Currently reading" bookRepository={bookRepository} books={books.filter(book => book.shelf === Data.currentlyReading.value)} />
+          <BookShelf title="Want to read" bookRepository={bookRepository} books={books.filter(book => book.shelf === Data.wantToRead.value)} />
+          <BookShelf title="Read" bookRepository={bookRepository} books={books.filter(book => book.shelf === Data.read.value)} />
         </div>
       </div>
       <div className="open-search">
@@ -28,7 +28,8 @@ const ListBooks = function (props) {
 }
 
 ListBooks.propTypes = {
-  books: PropTypes.array.isRequired
+  books: PropTypes.array.isRequired,
+  bookRepository: PropTypes.object.isRequired
 }
 
 export default ListBooks

@@ -1,47 +1,70 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import * as PubSubJs from 'pubsub-js';
 
-const Book = function (props) {
-  const { book } = props;
+import BookDTO from '../dtos/BookDTO';
 
-  var bookShelf = book.shelf;
+class Book extends Component {
+  constructor(props) {
+    super(props);
 
-  if (bookShelf === undefined) {
-    bookShelf = "none";
+    var bookShelf = props.book.shelf;
+
+    if (bookShelf === undefined) {
+      bookShelf = "none";
+    }
+
+    this.state = {
+      bookShelf: bookShelf
+    };
   }
 
-  /*
-          <Link to={"/pick-book-shelf?bookId=" + book.id + "&bookShelf=" + book.shelf}><div className="book-shelf-changer"></div></Link>
-  */
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    bookRepository: PropTypes.object.isRequired
+  }
 
-  return (
-    <li>
-      <div className="book">
-        <div className="book-top">
-          <Link to={"/book/" + book.id}>
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
-          </Link>
-        </div>
-        <div className="book-shelf-changer">
-          <select>
-            <option value="none" disabled>Move to...</option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
-            <option value="none">None</option>
-          </select>
-        </div>
-        <div className="book-shelf">{bookShelf}</div>
-        <div className="book-title">{book.title}</div>
-        <div className="book-authors">{(Array.isArray(book.authors)) && book.authors.map((author, idx) => <div key={idx}>{author}</div>)}</div>
-      </div>
-    </li>
-  );
-}
+  setBookShelf = (bookShelf) => {
+    this.setState({ bookShelf });
 
-Book.propTypes = {
-  book: PropTypes.object.isRequired
+    var bookDTO = new BookDTO(this.props.book.id);
+    bookDTO.shelf = bookShelf;
+
+    this.props.bookRepository.update(bookDTO).then((res) => {
+      //PubSubJs.publish("books.get", () => {
+      //  this.props.goBack();
+      //});
+    });
+  }
+
+  render() {
+    const { book } = this.props;
+
+    return (
+      <li>
+        <div className="book">
+          <div className="book-top">
+            <Link to={"/book/" + book.id}>
+              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
+            </Link>
+          </div>
+          <div className="book-shelf-changer">
+            <select value={this.state.bookShelf} onChange={(event) => { this.setBookShelf(event.target.value) }}>
+              <option value="none" disabled>Move to...</option>
+              <option value="currentlyReading">Currently Reading</option>
+              <option value="wantToRead">Want to Read</option>
+              <option value="read">Read</option>
+              <option value="none">None</option>
+            </select>
+          </div>
+          <div className="book-shelf">{this.state.bookShelf}</div>
+          <div className="book-title">{book.title}</div>
+          <div className="book-authors">{(Array.isArray(book.authors)) && book.authors.map((author, idx) => <div key={idx}>{author}</div>)}</div>
+        </div>
+      </li>
+    );
+  }
 }
 
 export default Book
