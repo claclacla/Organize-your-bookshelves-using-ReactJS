@@ -1,34 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as PubSubJs from 'pubsub-js';
+
+import BookShelfChanger from './BookShelfChanger';
 
 class Book extends Component {
-  constructor(props) {
-    super(props);
-
-    var bookShelf = props.book.shelf;
-
-    if (bookShelf === undefined) {
-      bookShelf = "none";
-    }
-
-    this.state = {
-      bookShelf: bookShelf
-    };
-  }
-
   static propTypes = {
     book: PropTypes.object.isRequired
   }
 
-  setBookShelf = (bookShelf) => {
-    this.setState({ bookShelf });
-    PubSubJs.publish("books.setBookShelf", { book: this.props.book, shelf: bookShelf });
-  }
-
   render() {
     const { book } = this.props;
+
+    var bookShelf = book.shelf;
+
+    if (bookShelf === undefined) {
+      bookShelf = "none";
+    }
 
     return (
       <li>
@@ -38,16 +26,8 @@ class Book extends Component {
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
             </Link>
           </div>
-          <div className="book-shelf-changer">
-            <select value={this.state.bookShelf} onChange={(event) => { this.setBookShelf(event.target.value) }}>
-              <option value="none" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
-          </div>
-          <div className="book-shelf">{this.state.bookShelf}</div>
+          <BookShelfChanger book={book} />
+          <div className="book-shelf">{bookShelf}</div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{(Array.isArray(book.authors)) && book.authors.map((author, idx) => <div key={idx}>{author}</div>)}</div>
         </div>
