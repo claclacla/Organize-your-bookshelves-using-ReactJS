@@ -71,7 +71,7 @@ class BooksApp extends React.Component {
           return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} bookRepository={this.bookRepository} goBack={routeProps.history.goBack} />);
         }} />
         <Route path="/search" render={() => (
-          <SearchBooks appRepository={this.appLocalStorageRepository} books={this.state.books} />
+          <SearchBooks appRepository={this.appLocalStorageRepository} bookRepository={this.bookRepository} books={this.state.books} />
         )} />
         <Route path="/book/:bookId" render={(routeProps) => {
           return (
