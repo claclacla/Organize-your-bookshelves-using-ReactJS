@@ -186,6 +186,7 @@ body, .app {
   color: #2e7d32;
 }
 .book-title {
+  clear: both;
   margin-top: 2px;
 }
 .book-authors {
@@ -199,10 +200,15 @@ body, .app {
   align-items: flex-end;
 }
 
+.book-shelf-changer-container {
+  position: relative;
+  width: 200px;
+  height: 20px;
+}
+
 .book-shelf-changer {
-  position: absolute;
-  right: -6px;
-  top: 210px;
+  float: left;
+  margin-left: 10px;
   width: 20px;
   height: 20px;
   border-radius: 50%;

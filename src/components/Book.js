@@ -26,8 +26,10 @@ class Book extends Component {
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
             </Link>
           </div>
-          <BookShelfChanger book={book} />
-          <div className="book-shelf">{bookShelf}</div>
+          <div className="book-shelf-changer-container">
+            <div className="inline">{bookShelf}</div>
+            <BookShelfChanger book={book} />
+          </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{(Array.isArray(book.authors)) && book.authors.map((author, idx) => <div key={idx}>{author}</div>)}</div>
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import BookShelfChanger from '../components/BookShelfChanger';
 
 class BookDetail extends Component {
   static propTypes = {
@@ -43,9 +44,12 @@ class BookDetail extends Component {
             <b>Publisher:</b> {this.state.book.publisher} <br />
             <b>Pages:</b> {this.state.book.pageCount}
             <br />
-            <b className="inline">Shelf:&nbsp;</b> <div className="inline">{this.state.book.shelf}</div>
-            <Link to={"/pick-book-shelf?bookId=" + this.state.book.id + "&bookShelf=" + this.state.book.shelf}><div className="book-detail-shelf-changer inline"></div></Link>
-            <br /><br />
+            <div className="book-shelf-changer-container">
+              <b className="inline">Shelf:&nbsp;</b> 
+              <div className="inline">{this.state.book.shelf}</div>
+              <BookShelfChanger book={this.state.book} />
+            </div>
+            <br />
             {this.state.book.description}
           </div>
         </div>
