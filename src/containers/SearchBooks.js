@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import SearchBooksText from '../components/SearchBooksText';
-import Book from '../components/Book';
+import BooksList from '../components/BooksList';
 
 class SearchBooks extends Component {
   static propTypes = {
@@ -68,13 +68,7 @@ class SearchBooks extends Component {
             <SearchBooksText appRepository={this.props.appRepository} search={this.search} />
           </div>
         </div>
-        <div className="search-books-results">
-          <ol className="books-grid">
-            {searchedBooks.map(book =>
-              <Book key={book.id} book={book}/>
-            )}
-          </ol>
-        </div>
+        <BooksList books={searchedBooks}/>
       </div>
     );
   }
