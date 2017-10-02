@@ -9,7 +9,6 @@ import '../App.css';
 import SearchBooks from './SearchBooks';
 import Bookcase from './Bookcase';
 import BookDetail from './BookDetail';
-import PickBookShelf from './PickBookShelf';
 
 class BooksApp extends React.Component {
   constructor() {
@@ -65,11 +64,6 @@ class BooksApp extends React.Component {
         <Route exact path="/" render={() => (
           <Bookcase books={this.state.books} />
         )} />
-        <Route path="/pick-book-shelf" render={(routeProps) => {
-          var queryParams = Util.getQueryParams(routeProps.location.search);
-
-          return (<PickBookShelf bookId={queryParams.bookId} bookShelf={queryParams.bookShelf} bookRepository={this.bookRepository} goBack={routeProps.history.goBack} />);
-        }} />
         <Route path="/search" render={() => (
           <SearchBooks appRepository={this.appLocalStorageRepository} bookRepository={this.bookRepository} books={this.state.books} />
         )} />
