@@ -7,7 +7,7 @@ import BookRESTRepository from '../repositories/REST/BookRESTRepository';
 import Util from '../lib/Util';
 import '../App.css';
 import SearchBooks from './SearchBooks';
-import ListBooks from './ListBooks';
+import Bookcase from './Bookcase';
 import BookDetail from './BookDetail';
 import PickBookShelf from './PickBookShelf';
 
@@ -63,7 +63,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <ListBooks books={this.state.books} />
+          <Bookcase books={this.state.books} />
         )} />
         <Route path="/pick-book-shelf" render={(routeProps) => {
           var queryParams = Util.getQueryParams(routeProps.location.search);
