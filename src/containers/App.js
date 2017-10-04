@@ -4,7 +4,6 @@ import * as PubSubJs from 'pubsub-js';
 
 import AppLocalStorageRepository from '../repositories/LocalStorage/AppLocalStorageRepository';
 import BookRESTRepository from '../repositories/REST/BookRESTRepository';
-import Util from '../lib/Util';
 import '../App.css';
 import SearchBooks from './SearchBooks';
 import Bookcase from './Bookcase';

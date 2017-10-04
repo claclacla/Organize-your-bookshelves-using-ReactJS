@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import BookShelfChanger from './BookShelfChanger';
+import BookImage from './BookImage';
 
 const Book = function (props) {
   const { book } = props;
@@ -18,7 +19,7 @@ const Book = function (props) {
       <div className="book">
         <div className="book-top">
           <Link to={"/book/" + book.id}>
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
+            <BookImage imageLinks={book.imageLinks}/>
           </Link>
         </div>
         <div className="book-shelf-changer-container">

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import BookShelfChanger from '../components/BookShelfChanger';
+import BookImage from '../components/BookImage';
 
 class BookDetail extends Component {
   static propTypes = {
@@ -37,7 +38,7 @@ class BookDetail extends Component {
           <h1>{this.state.book.title}</h1>
         </div>
         <div className="book-detail-content">
-          <div className="book-detail-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + this.state.book.imageLinks.thumbnail + ')' }}></div>
+          <BookImage imageLinks={this.state.book.imageLinks}/>
           <div className="book-detail-text">
             <h2>{this.state.book.title}</h2>
             {this.state.book.subtitle} <br /><br />
